@@ -4,5 +4,17 @@
 SELECT name
 FROM world
 WHERE population >
-      (SELECT population FROM world
+      (SELECT population 
+       FROM world
        WHERE name = 'Russia');
+      
+-- #2 Richer than UK
+-- Show the countries in Europe with a per capita GDP greater than 'United Kingdom'.
+
+SELECT name 
+FROM world
+WHERE gdp/population >
+      (SELECT gdp/population
+       FROM world
+       WHERE name = 'United Kingdom')
+AND continent = 'Europe';
