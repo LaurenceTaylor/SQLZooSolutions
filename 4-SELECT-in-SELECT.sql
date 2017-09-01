@@ -93,3 +93,19 @@ WHERE name <= ALL(SELECT name
 -- Then find the names of the countries associated with these continents.
 -- Show name, continent and population.
 
+SELECT name, continent, population
+FROM world AS x
+WHERE 25000000 > ALL(SELECT population
+                     FROM world AS y
+                     WHERE x.continent = y.continent);
+                     
+-- #10
+-- Some countries have populations more than three times that of any of their neighbours (in the same continent). 
+-- Give the countries and continents.
+
+SELECT name, continent
+FROM world AS x
+WHERE population/3 > ALL(SELECT population
+                         FROM world AS y
+                         WHERE x.continent = y.continent
+                         AND x.name != y.name);
