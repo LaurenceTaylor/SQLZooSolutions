@@ -73,11 +73,23 @@ WHERE gdp > ALL(SELECT gdp
 -- Find the largest country (by area) in each continent, show the continent, the name and the area:
 
 SELECT continent, name, area
-FROM world x
+FROM world AS x
 WHERE area >= ALL(SELECT area 
-                  FROM world y
+                  FROM world AS y
                   WHERE y.continent = x.continent
                   AND area > 0);
 
 -- #8 First country of each continent (alphabetically)
 -- List each continent and the name of the country that comes first alphabetically.
+
+SELECT continent, name
+FROM world AS x
+WHERE name <= ALL(SELECT name
+                  FROM world AS y
+                  WHERE y.continent = x.continent);
+                  
+-- #9 Difficult Questions That Utilize Techniques Not Covered In Prior Sections
+-- Find the continents where all countries have a population <= 25000000.
+-- Then find the names of the countries associated with these continents.
+-- Show name, continent and population.
+
