@@ -41,7 +41,7 @@ WHERE title = 'Casablanca';
 
 SELECT actor.name
 FROM actor
-JOIN casting ON actor.id = casting.actorid
+JOIN casting ON (actor.id = casting.actorid)
 WHERE movieid = 11768;
 
 -- #7 Alien cast list
@@ -49,7 +49,7 @@ WHERE movieid = 11768;
 
 SELECT actor.name
 FROM actor
-JOIN casting ON actor.id = casting.actorid
+JOIN casting ON (actor.id = casting.actorid)
 WHERE movieid = (SELECT id
                  FROM movie
                  WHERE title = 'Alien');
@@ -59,7 +59,7 @@ WHERE movieid = (SELECT id
 
 SELECT title
 FROM movie
-JOIN casting ON movie.id = casting.movieid
+JOIN casting ON (movie.id = casting.movieid)
 WHERE actorid = (SELECT id
                  FROM actor
                  WHERE name = 'Harrison Ford');
@@ -69,7 +69,7 @@ WHERE actorid = (SELECT id
 
 SELECT title
 FROM movie
-JOIN casting ON movie.id = casting.movieid
+JOIN casting ON (movie.id = casting.movieid)
 WHERE actorid = (SELECT id
                  FROM actor
                  WHERE name = 'Harrison Ford')
@@ -80,8 +80,8 @@ AND ord != 1;
 
 SELECT movie.title, actor.name
 FROM movie
-JOIN casting ON movie.id = casting.movieid
-JOIN actor ON casting.actorid = actor.id
+JOIN casting ON (movie.id = casting.movieid)
+JOIN actor ON (casting.actorid = actor.id)
 WHERE yr = 1962
 AND ord = 1;
 
@@ -91,8 +91,8 @@ show the year and the number of movies he made each year for any year in which h
 
 SELECT yr, COUNT(title)
 FROM movie
-JOIN casting ON movie.id = casting.movieid
-JOIN actor ON casting.actorid = actor.id
+JOIN casting ON (movie.id = casting.movieid)
+JOIN actor ON (casting.actorid = actor.id)
 WHERE name = 'John Travolta'
 GROUP BY yr
 HAVING COUNT(title) > 2;
@@ -102,8 +102,8 @@ HAVING COUNT(title) > 2;
 
 SELECT movie.title, actor.name
 FROM movie
-JOIN casting ON movie.id = casting.movieid
-JOIN actor ON casting.actorid = actor.id
+JOIN casting ON (movie.id = casting.movieid)
+JOIN actor ON (casting.actorid = actor.id)
 WHERE casting.movieid IN (SELECT movieid 
                           FROM casting
                           WHERE actorid IN (SELECT id 
@@ -116,8 +116,8 @@ AND ord = 1;
 
 SELECT name
 FROM actor
-JOIN casting ON actor.id = casting.actorid
-JOIN movie ON casting.movieid = movie.id
+JOIN casting ON (actor.id = casting.actorid)
+JOIN movie ON (casting.movieid = movie.id)
 WHERE ord = 1
 GROUP BY name
 HAVING COUNT(title) >= 30
@@ -128,8 +128,8 @@ ORDER BY name;
 
 SELECT title, COUNT(*)
 FROM movie
-JOIN casting ON movie.id = casting.movieid
-JOIN actor ON casting.actorid = actor.id
+JOIN casting ON (movie.id = casting.movieid)
+JOIN actor ON (casting.actorid = actor.id)
 WHERE yr = 1978
 GROUP BY title
 ORDER BY COUNT(*) DESC, title;
@@ -139,7 +139,7 @@ ORDER BY COUNT(*) DESC, title;
 
 SELECT name
 FROM actor
-JOIN casting ON actor.id = casting.actorid
+JOIN casting ON (actor.id = casting.actorid)
 WHERE casting.movieid IN (SELECT movieid 
                           FROM casting
                           WHERE actorid IN (SELECT id 
