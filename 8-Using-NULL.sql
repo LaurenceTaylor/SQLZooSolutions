@@ -36,7 +36,7 @@ FROM teacher;
 -- Use the string 'None' where there is no department.
 
 SELECT teacher.name, COALESCE(dept.name, 'None')
-FROM teacher LEFT JOIN dept ON teacher.dept = dept.id;
+FROM teacher LEFT JOIN dept ON (teacher.dept = dept.id);
 
 -- #7
 -- Use COUNT to show the number of teachers and the number of mobile phones.
@@ -49,7 +49,7 @@ FROM teacher;
 -- Use a RIGHT JOIN to ensure that the Engineering department is listed.
 
 SELECT dept.name, COUNT(teacher.name)
-FROM teacher RIGHT JOIN dept ON teacher.dept = dept.id
+FROM teacher RIGHT JOIN dept ON (teacher.dept = dept.id)
 GROUP BY dept.name;
 
 -- #9
