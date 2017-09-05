@@ -28,7 +28,7 @@ WHERE id = 1012;
 
 SELECT player, teamid, stadium, mdate
 FROM game 
-JOIN goal ON game.id = goal.matchid
+JOIN goal ON (game.id = goal.matchid)
 WHERE teamid = 'GER';
 
 -- #4
@@ -37,7 +37,7 @@ WHERE teamid = 'GER';
 
 SELECT team1, team2, player
 FROM game 
-JOIN goal ON game.id = goal.matchid
+JOIN goal ON (game.id = goal.matchid)
 WHERE player LIKE 'Mario%';
 
 -- #5
@@ -47,7 +47,7 @@ WHERE player LIKE 'Mario%';
 
 SELECT player, teamid, coach, gtime
 FROM goal
-JOIN eteam ON goal.teamid = eteam.id
+JOIN eteam ON (goal.teamid = eteam.id)
 WHERE gtime <= 10;
 
 -- #6
@@ -57,7 +57,7 @@ WHERE gtime <= 10;
 
 SELECT mdate, teamname
 FROM game
-JOIN eteam ON game.team1 = eteam.id
+JOIN eteam ON (game.team1 = eteam.id)
 WHERE coach = 'Fernando Santos';
 
 -- #7
@@ -65,7 +65,7 @@ WHERE coach = 'Fernando Santos';
 
 SELECT player
 FROM goal
-JOIN game ON goal.matchid = game.id
+JOIN game ON (goal.matchid = game.id)
 WHERE stadium = 'National Stadium, Warsaw';
 
 -- #8
@@ -73,7 +73,8 @@ WHERE stadium = 'National Stadium, Warsaw';
 -- Instead show the name of all players who scored a goal against Germany.
 
 SELECT DISTINCT player
-FROM game JOIN goal ON game.id = goal.matchid
+FROM game 
+JOIN goal ON (game.id = goal.matchid)
 WHERE (team1 = 'GER' OR team2 = 'GER')
 AND teamid != 'GER';
 
@@ -81,7 +82,8 @@ AND teamid != 'GER';
 -- Show teamname and the total number of goals scored.
 
 SELECT teamname, COUNT(*)
-FROM eteam JOIN goal ON eteam.id = goal.teamid
+FROM eteam 
+JOIN goal ON (eteam.id = goal.teamid)
 GROUP BY teamname;
 
 -- #10
@@ -89,7 +91,7 @@ GROUP BY teamname;
 
 SELECT stadium, COUNT(*)
 FROM game
-JOIN goal ON game.id = goal.matchid
+JOIN goal ON (game.id = goal.matchid)
 GROUP BY stadium;
 
 -- #11
@@ -97,7 +99,7 @@ GROUP BY stadium;
 
 SELECT matchid, mdate, COUNT(*)
 FROM goal
-JOIN game ON goal.matchid = game.id
+JOIN game ON (goal.matchid = game.id)
 WHERE (team1 = 'POL' OR team2 = 'POL')
 GROUP BY matchid, mdate;
 
@@ -106,7 +108,7 @@ GROUP BY matchid, mdate;
 
 SELECT matchid, mdate, COUNT(*)
 FROM goal
-JOIN game ON goal.matchid = game.id
+JOIN game ON (goal.matchid = game.id)
 WHERE teamid = 'GER'
 GROUP BY matchid, mdate;
 
@@ -124,5 +126,5 @@ SELECT mdate,
   team2,
   SUM(CASE WHEN teamid = team2 THEN 1 ELSE 0 END) AS score2
 FROM game 
-LEFT JOIN goal ON goal.matchid = game.id
+LEFT JOIN goal ON (goal.matchid = game.id)
 GROUP BY mdate, matchid, team1, team2;
