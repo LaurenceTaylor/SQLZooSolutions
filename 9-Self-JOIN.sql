@@ -79,6 +79,19 @@ AND stopb.name = 'Tollcross';
 by taking one bus, including 'Craiglockhart' itself, offered by the LRT company.
 Include the company and bus no. of the relevant services.*/
 
+SELECT DISTINCT stopb.name, a.company, a.num 
+FROM route AS a
+JOIN route AS b ON (a.num = b.num AND a.company = b.company)
+JOIN stops AS stopa ON (a.stop = stopa.id)
+JOIN stops AS stopb ON (b.stop = stopb.id)
+WHERE stopa.name = 'Craiglockhart'
+AND a.company = 'LRT';
+
+-- #10
+/* Find the routes involving two buses that can go from Craiglockhart to Sighthill.
+Show the bus no. and company for the first bus, the name of the stop for the transfer,
+and the bus no. and company for the second bus. */
+
 
 
 
