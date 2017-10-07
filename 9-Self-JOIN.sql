@@ -87,12 +87,6 @@ JOIN stops AS stopb ON (b.stop = stopb.id)
 WHERE stopa.name = 'Craiglockhart'
 AND a.company = 'LRT';
 
--- #10
-/* Find the routes involving two buses that can go from Craiglockhart to Sighthill.
-Show the bus no. and company for the first bus, the name of the stop for the transfer,
-and the bus no. and company for the second bus. */
-
-
 
 
 
