@@ -86,7 +86,3 @@ JOIN stops AS stopa ON (a.stop = stopa.id)
 JOIN stops AS stopb ON (b.stop = stopb.id)
 WHERE stopa.name = 'Craiglockhart'
 AND a.company = 'LRT';
-
-
-
-
